@@ -8,6 +8,7 @@ using Office = Microsoft.Office.Core;
 using Microsoft.Office.Tools.Excel;
 using Microsoft.Win32;
 using System.Windows.Forms;
+using XLAdModel.UPDATE;
 
 namespace XLAdModel {
     // Cette classe contient logique de présentation.
@@ -44,6 +45,10 @@ namespace XLAdModel {
         }
 
         private void ThisAddIn_Startup(object sender, System.EventArgs e) {
+           if (System.Deployment.Application.ApplicationDeployment.IsNetworkDeployed) {
+                var uM = new UpdateManager(); // quittera l'app si une MAJ est disponible et effectué
+            }
+
             initSkyNetTP(); // chargement initial de l'utilitaire
         }
 
