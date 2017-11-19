@@ -34,10 +34,13 @@ namespace XLAdModel.UPDATE {
             this._updateIsAvail = CheckIfUpdateAvailable();
 
             if (this._updateIsAvail) {
+                Globals.ThisAddIn.Application.Cursor = Microsoft.Office.Interop.Excel.XlMousePointer.xlWait;
+
                 string result = InstallUpdateSyncWithInfo();
                 if (result != null)
-                    MessageBox.Show("Nouvelle version installé : " + result +"\n\nL'application va maintenant quitter.",ThisAddIn.NameOfAddin);
+                    MessageBox.Show("Nouvelle version : " + result +"\n\nL'application va maintenant quitter.",ThisAddIn.NameOfAddin);
 
+                Globals.ThisAddIn.Application.Cursor = Microsoft.Office.Interop.Excel.XlMousePointer.xlDefault;
                 Globals.ThisAddIn.QuitAddIn();
             }
                 
@@ -243,6 +246,7 @@ namespace XLAdModel.UPDATE {
 
         private bool downloadFTPfolderForUpdate() {
             try {
+                
                 ApplicationDeployment CurrentDep = ApplicationDeployment.CurrentDeployment;
 
                 XmlDocument doc = new XmlDocument();
